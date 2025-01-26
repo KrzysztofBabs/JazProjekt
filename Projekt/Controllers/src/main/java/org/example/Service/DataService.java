@@ -137,11 +137,42 @@ public class DataService {
 
     }
 
+    public void deleteCityById(Long id) {
+        City city = cityRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("City with id = " + id + " does not exist."));
+
+        cityRepository.delete(city);
+    }
+
     public void deleteWeatherById(Long id) {
 
         Weather weather = weatherRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("Weather  with id = " +id + " does not exist."));
 
         weatherRepository.delete(weather);
+    }
+
+    public void deleteCloudsById(Long id) {
+        Clouds clouds = cloudsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Clouds  with id = " +id + " does not exist."));
+
+        cloudsRepository.delete(clouds);
+    }
+
+
+    public void deleteRainById(Long id) {
+
+        Rain rain = rainRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Rain with id = " +id + " does not exist."));
+        rainRepository.delete(rain);
+    }
+
+
+    public void deleteWindById(Long id) {
+        Wind wind = windRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Wind with id = " +id + " does not exist."));
+
+        windRepository.delete(wind);
+
     }
 }

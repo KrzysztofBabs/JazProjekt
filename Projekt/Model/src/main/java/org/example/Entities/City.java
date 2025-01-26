@@ -13,7 +13,7 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonProperty("name")
-    private String name; // Nazwa miasta
+    private String name;
 
     @JsonProperty("sys")
 //    @Embedded

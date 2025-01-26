@@ -23,15 +23,6 @@ public class DataController {
         return "City added successfully!";
     }
 
-    @DeleteMapping("/deleteCity")
-    public String deleteCity(@RequestParam String name) {
-        try {
-            weatherService.deleteCityByName(name);
-            return "City with name = " + name + " has been deleted.";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
-    }
 
     @PostMapping("/weather")
     public String addWeather(@RequestBody Weather weather) {
@@ -70,57 +61,77 @@ public class DataController {
         dataService.updateWeather(weather);
         return "Weather updated successfully!";
     }
-//
+
     @PutMapping("/clouds")
     public String updateClouds(@RequestBody Clouds clouds) {
         dataService.updateClouds(clouds);
         return "Clouds data updated successfully!";
     }
-//
+
     @PutMapping("/rain")
     public String updateRain(@RequestBody Rain rain) {
         dataService.updateRain(rain);
         return "Rain data updated successfully!";
     }
-//
+
     @PutMapping("/wind")
     public String updateWind(@RequestBody Wind wind) {
         dataService.updateWind(wind);
         return "Wind data updated successfully!";
     }
-//
-//
-//
-//    //DELETE
-    @DeleteMapping("/weather")
-    public String deleteWeather(@RequestParam Long id) {
-//        dataService.deleteWeatherById(id);
-//        return "Weather data with ID = " + id + " has been deleted.";
+
+      //DELETE
+
+    @DeleteMapping("/deleteCity")
+    public String deleteCity(@RequestParam String name) {
         try {
-            dataService.deleteWeatherById(id);
-            return "Weather with name = " +id + " has been deleted.";
+            weatherService.deleteCityByName(name);
+            return "City with name = " + name + " has been deleted.";
         } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
     }
-//
-//    @DeleteMapping("/clouds")
-//    public String deleteClouds(@RequestParam Long id) {
-//        dataService.deleteCloudsById(id);
-//        return "Clouds data with ID = " + id + " has been deleted.";
+//    @DeleteMapping("/deleteCity")
+//    public String deleteCity(@RequestParam Long id) {
+//        try {
+//            dataService.deleteCityById(id);
+//            return "City with id= " + id + " has been deleted.";
+//        } catch (IllegalArgumentException e) {
+//            return e.getMessage();
+//        }
 //    }
-//
-//    @DeleteMapping("/rain")
-//    public String deleteRain(@RequestParam Long id) {
-//        dataService.deleteRainById(id);
-//        return "Rain data with ID = " + id + " has been deleted.";
-//    }
-//
-//    @DeleteMapping("/wind")
-//    public String deleteWind(@RequestParam Long id) {
-//        dataService.deleteWindById(id);
-//        return "Wind data with ID = " + id + " has been deleted.";
-//    }
+
+    @DeleteMapping("/deleteWeather")
+    public String deleteWeather(@RequestParam Long id) {
+        try {
+            dataService.deleteWeatherById(id);
+            return "Weather with id= " +id + " has been deleted.";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+    }
+
+    @DeleteMapping("/deleteClouds")
+    public String deleteClouds(@RequestParam Long id) {
+        try {
+            dataService.deleteCloudsById(id);
+            return "Clouds data with ID = " + id + " has been deleted.";
+        }catch(IllegalArgumentException e){
+             return  e.getMessage();
+        }
+    }
+
+    @DeleteMapping("/deleteRain")
+    public String deleteRain(@RequestParam Long id) {
+        dataService.deleteRainById(id);
+        return "Rain data with ID = " + id + " has been deleted.";
+    }
+
+    @DeleteMapping("/deleteWind")
+    public String deleteWind(@RequestParam Long id) {
+        dataService.deleteWindById(id);
+        return "Wind data with ID = " + id + " has been deleted.";
+    }
 
 
 
