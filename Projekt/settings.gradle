@@ -1,0 +1,5 @@
+rootProject.name = 'Projekt'
+include 'Model'
+include 'Updater'
+include 'Controllers'
+

@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.0'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'org.hsqldb:hsqldb:2.4.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    // Opcjonalnie, jeśli korzystasz z JSON w Javie 8+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+
+    // Opcjonalnie, jeśli potrzebujesz parsować dodatkowe typy danych, np. JavaTime
+//    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.2
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.30
+}
+
+
+test {
+    useJUnitPlatform()
+}
