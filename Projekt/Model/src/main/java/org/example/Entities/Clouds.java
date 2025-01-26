@@ -12,11 +12,11 @@ public class Clouds {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "weather_id")
     private Weather weather; // Powiązanie z pogodą
 
-    @JsonProperty("all")
+    @JsonProperty("cloudiness")
     private Integer cloudiness; // Zachmurzenie w % (np. 83)
 
     public Long getId() {

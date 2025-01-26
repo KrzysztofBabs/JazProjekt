@@ -49,4 +49,99 @@ public class DataService {
     public Wind addWind(Wind wind) {
         return windRepository.save(wind);
     }
+
+    @Transactional
+    public void updateCity(City city) {
+        City existingCity = cityRepository.findById(city.getId())
+                .orElseThrow(() -> new IllegalArgumentException("City with ID = " + city.getId() + " does not exist."));
+
+
+        existingCity.setName(city.getName());
+        existingCity.setCountry(city.getCountry());
+        existingCity.setCoordinates(city.getCoordinates());
+
+        cityRepository.save(existingCity);
+    }
+
+    @Transactional
+    public void updateWeather(Weather weather) {
+        Weather existingWeather = weatherRepository.findById(weather.getId())
+                .orElseThrow(()->new IllegalArgumentException("Weather with ID = " + weather.getId() + " does not exist."));
+
+        // Pobranie powiązanego miasta na podstawie city_id z JSON-a
+        City city = cityRepository.findById(weather.getCity().getId())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "City with ID = " + weather.getCity().getId() + " does not exist."));
+
+        // Aktualizacja pól w istniejącym obiekcie Weather
+        existingWeather.setCity(city);
+        existingWeather.setFeelsLike(weather.getFeelsLike());
+        existingWeather.setHumidity(weather.getHumidity());
+        existingWeather.setPressure(weather.getPressure());
+        existingWeather.setTemperature(weather.getTemperature());
+        existingWeather.setDescription(weather.getDescription());
+        existingWeather.setMain(weather.getMain());
+
+        weatherRepository.save(existingWeather);
+
+    }
+
+    @Transactional
+    public void updateClouds(Clouds clouds) {
+        Clouds existingClouds = cloudsRepository.findById(clouds.getId())
+                        .orElseThrow(()->new IllegalArgumentException("Cloud with ID = " + clouds.getId() + " does not exist."));
+
+        Weather weather = weatherRepository.findById(clouds.getWeather().getId())
+                        .orElseThrow(()-> new IllegalArgumentException("Weather with ID = " + clouds.getWeather().getId() + " does not exist."));
+
+        existingClouds.setWeather(weather);
+        existingClouds.setCloudiness(clouds.getCloudiness());
+
+
+        cloudsRepository.save(existingClouds);
+    }
+
+
+    @Transactional
+    public void updateRain(Rain rain) {
+
+        Rain existingRain = rainRepository.findById(rain.getId())
+                .orElseThrow(()->new IllegalArgumentException("Rain with ID = " + rain.getId() + " does not exist."));
+
+        Weather weather = weatherRepository.findById(rain.getWeather().getId())
+                .orElseThrow(()-> new IllegalArgumentException("Weather with ID = " + rain.getWeather().getId() + " does not exist."));
+
+        existingRain.setWeather(weather);
+        existingRain.setRain1h(rain.getRain1h());
+
+
+        rainRepository.save(existingRain);
+    }
+
+    @Transactional
+    public void updateWind(Wind wind) {
+        Wind existingWind = windRepository.findById(wind.getId())
+                .orElseThrow(()->new IllegalArgumentException("Wind with ID = " + wind.getId() + " does not exist."));
+
+        Weather weather = weatherRepository.findById(wind.getWeather().getId())
+                .orElseThrow(()-> new IllegalArgumentException("Weather with ID = " + wind.getWeather().getId() + " does not exist."));
+
+        existingWind.setWeather(weather);
+
+        existingWind.setDirection(wind.getDirection());
+        existingWind.setGust(existingWind.getGust());
+        existingWind.setSpeed(existingWind.getSpeed());
+
+        windRepository.save(existingWind);
+
+
+    }
+
+    public void deleteWeatherById(Long id) {
+
+        Weather weather = weatherRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Weather  with id = " +id + " does not exist."));
+
+        weatherRepository.delete(weather);
+    }
 }

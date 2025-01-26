@@ -11,7 +11,7 @@ public class Wind {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "weather_id")
     private Weather weather; // Powiązanie z pogodą
 

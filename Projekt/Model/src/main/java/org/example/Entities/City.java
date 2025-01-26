@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class City {
@@ -24,7 +26,16 @@ public class City {
     @Embedded
     private Coordinates coordinates; // Współrzędne geograficzne
 
+    @OneToMany(mappedBy = "city", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Weather> weatherRecords;
 
+    public List<Weather> getWeatherRecords() {
+        return weatherRecords;
+    }
+
+    public void setWeatherRecords(List<Weather> weatherRecords) {
+        this.weatherRecords = weatherRecords;
+    }
 
     public Long getId() {
         return id;

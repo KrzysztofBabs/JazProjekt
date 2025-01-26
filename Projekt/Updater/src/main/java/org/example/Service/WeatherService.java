@@ -113,7 +113,15 @@ public class WeatherService {
     public void deleteCityByName(String name) {
         City city = cityRepository.findByname(name)
                 .orElseThrow(() -> new IllegalArgumentException("City with name = " + name + " does not exist."));
-        weatherRepository.deleteByCity(city);
+
+//        for (Weather weather : weatherRepository.findByCity(city)) {
+//            cloudsRepository.deleteByWeather(weather);
+//        }
+//
+//        for (Weather weather : weatherRepository.findByCity(city)) {
+//            windRepository.deleteByWeather(weather);
+//        }
+//        weatherRepository.deleteByCity(city);
 
         cityRepository.delete(city);
     }

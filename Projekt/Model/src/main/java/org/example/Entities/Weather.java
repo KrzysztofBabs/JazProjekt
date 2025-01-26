@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Weather {
@@ -32,6 +34,28 @@ public class Weather {
 
     @JsonProperty("humidity")
     private Integer humidity; // Wilgotność (w %)
+
+    @OneToMany(mappedBy = "weather", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Wind> winds;
+
+    @OneToMany(mappedBy = "weather", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Clouds> clouds;
+
+    public List<Clouds> getClouds() {
+        return clouds;
+    }
+
+    public void setClouds(List<Clouds> clouds) {
+        this.clouds = clouds;
+    }
+
+    public List<Wind> getWinds() {
+        return winds;
+    }
+
+    public void setWinds(List<Wind> winds) {
+        this.winds = winds;
+    }
 
     public Long getId() {
         return id;
